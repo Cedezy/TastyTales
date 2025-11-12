@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Login - TastyTales{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-image-section">
+            <div class="food-grid">
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop" alt="Salad">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop" alt="Pizza">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200&h=200&fit=crop" alt="Bowl">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=200&fit=crop" alt="Pancakes">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop" alt="Healthy Food">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&h=200&fit=crop" alt="Fruit Bowl">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&h=200&fit=crop" alt="Tomatoes">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1514986888952-8cd320577b68?w=200&h=200&fit=crop" alt="Berries">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop" alt="Pasta">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=200&h=200&fit=crop" alt="Burrito Bowl">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=200&h=200&fit=crop" alt="Soup">
+                </div>
+                <div class="food-grid-item">
+                    <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=200&h=200&fit=crop" alt="Dessert">
+                </div>
+            </div>
+            <div class="auth-image-text">
+                <h2>FOOD HUB</h2>
+                <p>Discover delicious recipes</p>
+            </div>
+        </div>
+        
+        <div class="auth-form-section">
+            <div class="auth-header">
+                <h1>FOOD MENU</h1>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab">Signin</button>
+            </div>
+            
+            <form method="POST" class="auth-form">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" class="form-input" placeholder="Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    SIGN IN
+                </button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

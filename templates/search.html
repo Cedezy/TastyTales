@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Recipes - TastyTales{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="search-page">
+        <!-- Search Header -->
+        <div class="search-header">
+            <h1 class="page-title">Explore Recipes</h1>
+            <p class="search-subtitle">Search for recipes, cuisines, and delicious food stories</p>
+        </div>
+        
+        <!-- Search Form -->
+        <div class="search-form-wrapper">
+            <form method="GET" action="{{ url_for('search') }}" class="search-form">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" name="q" value="{{ query }}" placeholder="Search recipes, cuisines, or ingredients..." class="search-input" autofocus>
+                    <button type="submit" class="search-btn">
+                        <span>Search</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        {% if query %}
+            <!-- Search Results -->
+            <div class="search-results">
+                <div class="results-header">
+                    <h2 class="results-title">
+                        Search Results for "<span class="query-highlight">{{ query }}</span>"
+                    </h2>
+                    <p class="results-count">{{ posts.total }} {{ 'result' if posts.total == 1 else 'results' }} found</p>
+                </div>
+                
+                {% if posts.items %}
+                    <div class="posts-grid">
+                        {% for post in posts.items %}
+                            <article class="post-card">
+                                {% if post.image_path %}
+                                    <div class="post-image-wrapper">
+                                        <a href="{{ url_for('post_detail', post_id=post.id) }}" class="post-image-link">
+                                            <img src="{{ url_for('static', filename=post.image_path) }}" alt="{{ post.title }}" class="post-image">
+                                            <div class="post-image-overlay"></div>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                <div class="post-content">
+                                    <div class="post-category">
+                                        {% if post.cuisine %}
+                                            <span class="category-badge">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 0.25rem;">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                    <circle cx="12" cy="10" r="3"></circle>
+                                                </svg>
+                                                {{ post.cuisine }}
+                                            </span>
+                                        {% else %}
+                                            <span class="category-badge">Recipe</span>
+                                        {% endif %}
+                                    </div>
+                                    <h2 class="post-title">
+                                        <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
+                                    </h2>
+                                    <p class="post-excerpt">{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+                                    <div class="post-footer">
+                                        <div class="post-author-info">
+                                            <div class="author-avatar">
+                                                {{ post.author.username[0].upper() }}
+                                            </div>
+                                            <div class="author-details">
+                                                <a href="{{ url_for('profile', username=post.author.username) }}" class="author-name">{{ post.author.username }}</a>
+                                                <span class="post-date">
+                                                    {{ post.created_at.strftime('%b %d, %Y') }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <a href="{{ url_for('post_detail', post_id=post.id) }}" class="read-more-link">
+                                            Read Recipe
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                <polyline points="12 5 19 12 12 19"></polyline>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination-wrapper">
+                        <div class="pagination">
+                            {% if posts.has_prev %}
+                                <a href="{{ url_for('search', q=query, page=posts.prev_num) }}" class="pagination-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                    Previous
+                                </a>
+                            {% endif %}
+                            
+                            <div class="pagination-info">
+                                <span class="page-current">{{ posts.page }}</span>
+                                <span class="page-separator">of</span>
+                                <span class="page-total">{{ posts.pages }}</span>
+                            </div>
+                            
+                            {% if posts.has_next %}
+                                <a href="{{ url_for('search', q=query, page=posts.next_num) }}" class="pagination-btn">
+                                    Next
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </div>
+                        <h3 class="empty-title">No results found</h3>
+                        <p class="empty-text">We couldn't find any recipes matching "{{ query }}". Try different ingredients or keywords, or browse our latest dishes.</p>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">Browse All Recipes</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <!-- Empty Search State -->
+            <div class="empty-search-state">
+                <div class="empty-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+                <h3 class="empty-title">Start Your Search</h3>
+                <p class="empty-text">Enter a recipe, ingredient, or cuisine to find delicious dishes</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

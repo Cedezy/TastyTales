@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Home - TastyTales{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="hero-fullscreen">
+    <div class="hero-image-bg"></div>
+    <div class="hero-overlay-dark"></div>
+    <div class="hero-wrapper">
+        <div class="hero-text">
+            <h1 class="hero-main-title">Cook, Share & Explore</h1>
+            <p class="hero-tagline">Discover thousands of delicious recipes from home cooks around the world</p>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('create_post') }}" class="cta-button">Share Your Recipe</a>
+            {% else %}
+                <div class="cta-group">
+                    <a href="{{ url_for('register') }}" class="cta-button primary">Join Now</a>
+                    <a href="{{ url_for('login') }}" class="cta-button secondary">Sign In</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-arrow"></div>
+    </div>
+</div>
+
+<div class="container main-content">
+    <!-- Category Showcase -->
+    <div class="category-showcase">
+        <div class="category-item" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800');">
+            <div class="category-overlay"></div>
+            <h3>Breakfast</h3>
+        </div>
+        <div class="category-item" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800');">
+            <div class="category-overlay"></div>
+            <h3>Salads</h3>
+        </div>
+        <div class="category-item" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800');">
+            <div class="category-overlay"></div>
+            <h3>Pizza</h3>
+        </div>
+        <div class="category-item" style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800');">
+            <div class="category-overlay"></div>
+            <h3>Desserts</h3>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <h4>10K+</h4>
+            <p>Recipes</p>
+        </div>
+        <div class="stat-item">
+            <h4>5K+</h4>
+            <p>Chefs</p>
+        </div>
+        <div class="stat-item">
+            <h4>50K+</h4>
+            <p>Reviews</p>
+        </div>
+        <div class="stat-item">
+            <h4>100+</h4>
+            <p>Countries</p>
+        </div>
+    </div>
+
+    <!-- Posts Section -->
+    {% if posts.items %}
+        <div class="content-header">
+            <h2>Latest Recipes</h2>
+            <p>Fresh from our community kitchen</p>
+        </div>
+        
+        <div class="recipes-masonry">
+            {% for post in posts.items %}
+            <div class="recipe-item">
+                {% if post.image_path %}
+                <a href="{{ url_for('post_detail', post_id=post.id) }}" class="recipe-photo">
+                    <img src="{{ url_for('static', filename=post.image_path) }}" alt="{{ post.title }}">
+                    <div class="recipe-hover">
+                        <span class="view-recipe">View Recipe</span>
+                    </div>
+                </a>
+                {% else %}
+                <a href="{{ url_for('post_detail', post_id=post.id) }}" class="recipe-photo no-image">
+                    <div class="no-image-placeholder">
+                        <span>🍽️</span>
+                    </div>
+                    <div class="recipe-hover">
+                        <span class="view-recipe">View Recipe</span>
+                    </div>
+                </a>
+                {% endif %}
+                <div class="recipe-info">
+                    {% if post.cuisine %}
+                    <span class="cuisine-tag">{{ post.cuisine }}</span>
+                    {% endif %}
+                    {% if post.cooking_time %}
+                        <div class="recipe-time">⏱ {{ post.cooking_time }}</div>
+                    {% endif %}
+                    <h3><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h3>
+                    <p class="post-excerpt">{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+                    <div class="post-footer">
+                        <div class="post-meta-info">
+                            <span class="post-date">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                {{ post.created_at.strftime('%b %d, %Y') }}
+                            </span>
+                            <span class="post-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                {{ post.comments|length }} {{ 'comment' if post.comments|length == 1 else 'comments' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="recipe-author">
+                        <div class="author-pic">{{ post.author.username[0].upper() }}</div>
+                        <span>{{ post.author.username }}</span>
+                    </div>
+                    <a href="{{ url_for('post_detail', post_id=post.id) }}" class="read-more-link">
+                        Read Recipe
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if posts.pages > 1 %}
+        <div class="pagination-wrap">
+            {% if posts.has_prev %}
+            <a href="{{ url_for('index', page=posts.prev_num) }}" class="page-btn">← Previous</a>
+            {% endif %}
+            
+            <span class="page-info">Page {{ posts.page }} of {{ posts.pages }}</span>
+            
+            {% if posts.has_next %}
+            <a href="{{ url_for('index', page=posts.next_num) }}" class="page-btn">Next →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state-box">
+            <div class="empty-icon">🍳</div>
+            <h3>No Recipes Yet</h3>
+            <p>
+                {% if current_user.is_authenticated %}
+                    Be the first to share a delicious recipe!
+                {% else %}
+                    Join us to discover and share amazing recipes.
+                {% endif %}
+            </p>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('create_post') }}" class="cta-button primary">Share Recipe</a>
+            {% else %}
+                <div class="cta-group">
+                    <a href="{{ url_for('register') }}" class="cta-button primary">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="cta-button secondary">Sign In</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

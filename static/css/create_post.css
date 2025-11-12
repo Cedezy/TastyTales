@@ -1,0 +1,374 @@
+/* Create Post Page Styles - Compact & Professional */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header Section - Compact */
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.header-content {
+    flex: 1;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.page-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.header-icon {
+    display: none;
+}
+
+/* Form Container */
+.form-container {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.label-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.label-required {
+    color: #ef4444;
+    font-size: 0.875rem;
+}
+
+.label-optional {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Input Wrapper */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #9ca3af;
+    pointer-events: none;
+}
+
+.input-wrapper .form-input {
+    padding-left: 3rem;
+}
+
+/* Form Inputs */
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Textarea */
+.textarea-wrapper {
+    position: relative;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: white;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-textarea::placeholder {
+    color: #9ca3af;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+.char-count {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* Form Help Text */
+.form-help {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+
+.help-icon {
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+/* File Upload */
+.file-upload-wrapper {
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    border-color: #1a1a1a;
+    background: #f3f4f6;
+}
+
+.file-upload-wrapper.drag-active .file-label {
+    border-color: #1a1a1a;
+    background: #f3f4f6;
+}
+
+.upload-icon {
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+}
+
+.file-label-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.file-label-main {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.file-label-sub {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* File Preview */
+.file-preview {
+    position: relative;
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e5e7eb;
+}
+
+.file-preview img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-file {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-file:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-icon {
+    flex-shrink: 0;
+}
+
+.btn-primary {
+    background: #1a1a1a;
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .page-subtitle {
+        font-size: 0.875rem;
+    }
+    
+    .form-container {
+        padding: 1.5rem;
+    }
+    
+    .post-form {
+        gap: 1.25rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .page-title {
+        font-size: 1.25rem;
+    }
+    
+    .form-input,
+    .form-textarea {
+        font-size: 0.9rem;
+    }
+    
+    .file-label {
+        padding: 1.5rem 1rem;
+    }
+}
